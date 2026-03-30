@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Theme
   const tBtn = document.getElementById('themeToggle');
-  const theme = localStorage.getItem('hajj-th') || 'light';
+  const theme = localStorage.getItem('hajj-th') || 'dark';
   document.documentElement.setAttribute('data-theme', theme);
   tBtn.querySelector('.theme-icon').textContent = theme === 'light' ? '🌙' : '☀️';
   tBtn.onclick = () => {
