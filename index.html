@@ -3,6 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guide complet du Hajj 2026 pas à pas : rituels, duas, checklist, carte, calendrier. Bilingue français-arabe.">
+    <meta property="og:title" content="Guide Complet du Hajj 2026">
+    <meta property="og:description" content="Chaque étape en détail, de l'inscription au retour. Rituels, duas, checklist, calendrier.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:locale:alternate" content="ar_DZ">
     <title>Guide Complet du Hajj 2026</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -23,8 +29,8 @@
                 <button class="lang-opt active" data-lang="fr" onclick="setLang('fr')">🇫🇷</button>
                 <button class="lang-opt" data-lang="ar" onclick="setLang('ar')">🇩🇿</button>
             </div>
-            <button class="theme-btn" id="themeToggle"><span class="theme-icon">🌙</span></button>
-            <button class="help-btn" id="helpBtn" onclick="toggleHelp()" title="Aide">?</button>
+            <button class="theme-btn" id="themeToggle" aria-label="Changer le thème"><span class="theme-icon">🌙</span></button>
+            <button class="help-btn" id="helpBtn" onclick="toggleHelp()" title="Aide" aria-label="Aide" aria-expanded="false">?</button>
         </nav>
     </div>
 </header>
@@ -33,12 +39,12 @@
     <div class="hero-content">
         <h2 class="hero-title" id="heroTitle">Guide Complet du Hajj</h2>
         <p class="hero-desc" id="heroDesc">Chaque étape en détail, de l'inscription au retour. 🤲</p>
-        <div class="search-wrap"><span>🔍</span><input type="text" id="globalSearch" placeholder="Rechercher un sujet, un rituel, un dua..."></div>
+        <div class="search-wrap"><label for="globalSearch" class="sr-only">Rechercher</label><span aria-hidden="true">🔍</span><input type="text" id="globalSearch" placeholder="Rechercher un sujet, un rituel, un dua..."></div>
     </div>
 </section>
 
 <!-- 4 TABS — Questions du Pèlerin -->
-<nav class="tabs" id="mainTabs">
+<nav class="tabs" id="mainTabs" role="tablist" aria-label="Sections principales">
     <button class="tab active" data-tab="monhajj"><span class="ti">🕋</span><span class="tl" id="tabMonHajj">Mon Hajj</span></button>
     <button class="tab" data-tab="apprendre"><span class="ti">📖</span><span class="tl" id="tabApprendre">Apprendre</span></button>
     <button class="tab" data-tab="preparer"><span class="ti">✅</span><span class="tl" id="tabPreparer">Préparer</span></button>
@@ -113,8 +119,8 @@
     <div id="footText">🕋 Guide du Hajj — Qu'Allah accepte votre Hajj 🤲</div>
     <div class="powered-by">Powered by <a href="https://workshop-diy.org" target="_blank" rel="noopener">workshop-diy.org</a></div>
 </footer>
-<button id="scrollTop" class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page">↑</button>
-<button id="duaBtn" class="dua-float" onclick="toggleDuaPanel()">🤲</button>
+<button id="scrollTop" class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page" aria-label="Retour en haut de page">↑</button>
+<button id="duaBtn" class="dua-float" onclick="toggleDuaPanel()" aria-label="Duas essentielles" aria-expanded="false">🤲</button>
 <div id="duaPanel" class="dua-panel hidden">
   <div class="dua-panel-header">
     <span id="duaPanelTitle">🤲 Duas Essentielles</span>
@@ -122,6 +128,7 @@
   </div>
   <div id="duaPanelContent" class="dua-panel-body"></div>
 </div>
+<noscript><p style="text-align:center;padding:40px 20px;font-size:1.1rem;color:#6b5d4d">Ce guide nécessite JavaScript pour fonctionner. Veuillez activer JavaScript dans votre navigateur.</p></noscript>
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>

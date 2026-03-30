@@ -205,6 +205,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }).join('');
     }
     if (panel) panel.classList.toggle('hidden', !helpOpen);
+    var helpBtn = document.getElementById('helpBtn');
+    if (helpBtn) helpBtn.setAttribute('aria-expanded', String(helpOpen));
   };
 
   // Theme
@@ -253,20 +255,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {passive: true});
   }
 
-  // Share
-  window.shareGuide = function() {
-    var title = lang === 'ar' ? 'دليل الحج الشامل 2026' : 'Guide Complet du Hajj 2026';
-    var text = lang === 'ar' ? 'دليل شامل للحج خطوة بخطوة مع أدعية وتنبيهات' : 'Guide complet du Hajj pas à pas avec duas et alertes';
-    if (navigator.share) {
-      navigator.share({title: title, text: text, url: window.location.href});
-    } else {
-      // Fallback: copy + WhatsApp
-      var msg = title + '\n' + text + '\n' + window.location.href;
-      var wa = 'https://wa.me/?text=' + encodeURIComponent(msg);
-      window.open(wa, '_blank');
-    }
-  };
-
   // Emergency Duas Panel
   var duaPanelOpen = false;
   var ESSENTIAL_DUAS = [
@@ -290,6 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }).join('');
     }
     if (panel) panel.classList.toggle('hidden', !duaPanelOpen);
+    var duaBtn = document.getElementById('duaBtn');
+    if (duaBtn) duaBtn.setAttribute('aria-expanded', String(duaPanelOpen));
   };
 
   // Search
@@ -414,12 +404,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.xfcN = () => { fcIdx=(fcIdx+1)%fcs.length; openPlusSection('flashcards'); };
   window.xfcS = () => { for(let i=fcs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[fcs[i],fcs[j]]=[fcs[j],fcs[i]]} fcIdx=0; openPlusSection('flashcards'); };
 
-  document.addEventListener('keydown', e => {
-    if(e.key==='ArrowLeft'){fcIdx=(fcIdx-1+fcs.length)%fcs.length;renderFC()}
-    else if(e.key==='ArrowRight'){fcIdx=(fcIdx+1)%fcs.length;renderFC()}
-    else if(e.key===' ' && document.querySelector('.fc')){e.preventDefault();document.querySelector('.fc').classList.toggle('flip')}
-  });
-
   function ritSvg(emoji, t1, t2, t3) {
     return `<svg viewBox="0 0 400 110" class="rit-svg"><defs><linearGradient id="rg${emoji.codePointAt(0)}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="var(--teal)" stop-opacity=".08"/><stop offset="100%" stop-color="var(--gold)" stop-opacity=".04"/></linearGradient></defs><rect width="400" height="110" fill="url(#rg${emoji.codePointAt(0)})"/><text x="58" y="64" font-size="38" text-anchor="middle" opacity=".8">${emoji}</text><text x="130" y="35" font-size="13" fill="var(--t1)" font-weight="700" font-family="sans-serif">${t1}</text><text x="130" y="58" font-size="10.5" fill="var(--t2)" font-family="sans-serif">${t2}</text><text x="130" y="78" font-size="10" fill="var(--t3)" font-family="sans-serif">${t3}</text><rect x="130" y="90" width="60" height="2.5" rx="1" fill="var(--gold)" opacity=".4"/></svg>`;
   }
@@ -488,8 +472,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ TIMELINE ============
   function renderTL() {
-    const c = document.getElementById('timelineContainer');
-    c.innerHTML = `<div class="tl-wrap">${((lang === "ar" && HAJJ_DATA.timelineAr) ? HAJJ_DATA.timelineAr : HAJJ_DATA.timeline).map((d,i) => `
+    const c = document.getElementById('timelineContainer'); if (!c) return;
+    const tlData = (lang === "ar" && HAJJ_DATA.timelineAr) ? HAJJ_DATA.timelineAr : HAJJ_DATA.timeline; if (!tlData) return;
+    c.innerHTML = `<div class="tl-wrap">${tlData.map((d,i) => `
       <div class="tl-day">
         <div class="tl-dot">${i+1}</div>
         <div class="tl-card" onclick="this.classList.toggle('expanded')">
@@ -508,8 +493,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ RITUALS ============
   function renderRit() {
-    const c = document.getElementById('ritualsContainer');
-    const ritData = (lang === 'ar' && HAJJ_DATA.ritualsAr) ? HAJJ_DATA.ritualsAr : HAJJ_DATA.rituals;
+    const c = document.getElementById('ritualsContainer'); if (!c) return;
+    const ritData = (lang === 'ar' && HAJJ_DATA.ritualsAr) ? HAJJ_DATA.ritualsAr : HAJJ_DATA.rituals; if (!ritData) return;
     c.innerHTML = ritData.map(r => `
       <div class="rit-card">
         ${RIT_SVG[r.emoji] ? `<div class="rit-illus">${RIT_SVG[r.emoji]}</div>` : `<span class="rit-em">${r.emoji}</span>`}
@@ -524,9 +509,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ CHECKLIST ============
   function renderCK() {
-    const c = document.getElementById('checklistContainer');
+    const c = document.getElementById('checklistContainer'); if (!c) return;
     const f = document.querySelector('.fbtn.active')?.dataset.filter || 'all';
-    const ckData = (lang === 'ar' && HAJJ_DATA.checklistAr) ? HAJJ_DATA.checklistAr : HAJJ_DATA.checklist;
+    const ckData = (lang === 'ar' && HAJJ_DATA.checklistAr) ? HAJJ_DATA.checklistAr : HAJJ_DATA.checklist; if (!ckData) return;
     const items = ckData.filter(x => f === 'all' || x.cat === f);
     const cats = { documents:'📄', vetements:'👘', sante:'💊', divers:'🎒' };
     c.innerHTML = items.map((x,i) => {
@@ -558,6 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ CLOTHING with SVG ============
   function renderCL() {
+    if (!document.getElementById('clothingContainer')) return;
     const ihramSvg = `<svg viewBox="0 0 600 180" style="width:100%;height:auto">
       <rect width="600" height="180" rx="12" fill="var(--acc)" opacity=".4"/>
       <circle cx="150" cy="50" r="22" fill="var(--card)" stroke="var(--gold)" stroke-width="2"/><text x="150" y="56" text-anchor="middle" font-size="22">👨</text>
@@ -624,7 +610,8 @@ document.addEventListener('DOMContentLoaded', () => {
     "Invocation complète — protection": "دعاء شامل — حفظ"
   };
   function renderDua() {
-    document.getElementById('duasContainer').innerHTML = HAJJ_DATA.duas.map(d => {
+    const duasC = document.getElementById('duasContainer'); if (!duasC || !HAJJ_DATA.duas) return;
+    duasC.innerHTML = HAJJ_DATA.duas.map(d => {
       const occ = lang === 'ar' ? (DUA_OCCASIONS_AR[d.occasion] || d.occasion) : d.occasion;
       return `<div class="dua"><div class="dua-occ">${occ}</div><div class="dua-ar">${d.arabic}</div><div class="dua-tr">${d.transliteration}</div><div class="dua-fr">${lang === 'ar' ? '' : '🇫🇷 '}${d.translation}</div></div>`;
     }).join('');
@@ -661,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============ HEALTH ============
   function renderHP() {
     const healthColors = {'💧':'var(--blue)','☀️':'var(--gold)','🦶':'var(--teal)','🤧':'var(--rose)','💊':'var(--rose)','🦷':'var(--t3)','👁️':'var(--teal)','🧠':'var(--gold)','🍎':'var(--grn)','🏥':'var(--rose)','😴':'var(--blue)','🧴':'var(--teal)','🩹':'var(--rose)','📱':'var(--gold)','🧳':'var(--t3)','🤝':'var(--grn)','🔥':'var(--rose)','🫁':'var(--teal)','🦠':'var(--rose)','🤰':'var(--grn)','👴':'var(--gold)','😷':'var(--blue)'};
-    const hData = (lang === 'ar' && HAJJ_DATA.healthAr) ? HAJJ_DATA.healthAr : HAJJ_DATA.health;
+    const hData = (lang === 'ar' && HAJJ_DATA.healthAr) ? HAJJ_DATA.healthAr : HAJJ_DATA.health; if (!hData) return;
     document.getElementById('healthContainer').innerHTML = hData.map(h => {
       const col = healthColors[h.emoji] || 'var(--teal)';
       return `<div style="background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);padding:0;box-shadow:var(--sh);overflow:hidden;transition:.3s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--shm)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sh)'">
@@ -1339,7 +1326,7 @@ document.addEventListener('DOMContentLoaded', () => {
       {s:'20260530T100000',e:'20260530T120000',t:'Hajj: Tawaf al-Wada (Adieu)',d:'7 tours d adieu. 2 rakat Maqam Ibrahim. Buvez Zamzam. Dernier regard sur la Kaaba. WAJIB — ne pas sauter. Femmes en menstruation: exemptees.',l:'Masjid al-Haram, Makkah'},
       {s:'20260526T050000',e:'20260526T053000',t:'RAPPEL: Takbir at-Tashriq commence',d:'A partir de Fajr du 9 Dhul Hijjah: recitez le Takbir apres CHAQUE priere obligatoire. Allahu Akbar Allahu Akbar la ilaha illallah wallahu akbar Allahu akbar wa lillahil hamd.',l:'Makkah'}
     ];
-    var ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//HajjGuide//FR\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nX-WR-CALNAME:Hajj 2026\r\nX-WR-TIMEZONE:Asia/Riyadh\r\n';
+    var ics = 'BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//HajjGuide//FR\r\nCALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\nX-WR-CALNAME:Hajj 2026\r\nX-WR-TIMEZONE:Asia/Riyadh\r\nX-WR-CALDESC:Dates estimees — peuvent varier de +/-1 jour selon observation lunaire officielle.\r\n';
     events.forEach(function(ev, idx) {
       ics += 'BEGIN:VEVENT\r\n';
       ics += 'DTSTART;TZID=Asia/Riyadh:' + ev.s + '\r\n';
