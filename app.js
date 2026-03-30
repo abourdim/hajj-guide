@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
   let tab = 'monhajj', fcIdx = 0;
-  let fcs = [...HAJJ_DATA.flashcards];
   let checked = JSON.parse(localStorage.getItem('hajj-ck') || '{}');
   let done = JSON.parse(localStorage.getItem('hajj-done') || '{}');
   let lang = localStorage.getItem('hajj-lang') || 'fr';
+  let fcs = [...((lang === "ar" && HAJJ_DATA.flashcardsAr) ? HAJJ_DATA.flashcardsAr : HAJJ_DATA.flashcards)];
 
   // Arabic UI translations
   const AR = {
@@ -82,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
     plusHandicap: 'Accessibilité', plusTour: 'Tour Virtuel',
     plusMedina: 'Guide Médine', plusLinks: 'Liens Utiles',
     plusGroupQA: '❓ Questions & Réponses', plusGroupHealth: '🛡️ Santé & Sécurité', plusGroupDiscover: '🕌 Découvrir',
-    backBtn: '' + T('backBtn') + '',
-    steps: '' + T('progressSteps') + '',
+    backBtn: '← Retour',
+    steps: 'étapes',
     googleCal: '📅 Google', outlookCal: '📧 Outlook', icsCal: '🍎 .ics',
     addAllTitle: '📅 Ajouter tout le programme à votre calendrier',
     addAllDesc: '15 événements · horaires La Mecque · rappels 1h et 15min avant',
@@ -95,8 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
     sectionTypes: '⚖️ Les 3 Types de Hajj', sectionClothing: '👘 Tenue & Ihram',
     sectionCosts: '💰 Coûts par Pays', sectionDates: '🗓️ Dates 2026',
     sectionApps: '📱 Apps Recommandées', sectionNusuk: '🌐 Nusuk',
-    bestPractice: ''+T('bestPractice')+'', history: '📜 Histoire', rules: '🚫 Règles',
-    tipLabel: ''+T('tipLabel')+'', errorsLabel: '⚠️ Erreurs à éviter', progressSteps: 'étapes',
+    bestPractice: '💡 Bonne pratique', history: '📜 Histoire', rules: '🚫 Règles',
+    tipLabel: '💡 Conseil', errorsLabel: '⚠️ Erreurs à éviter', progressSteps: 'étapes',
     sectionChecklist: '✅ Checklist', sectionMap: '🗺️ Carte des Distances', sectionDuas: '🤲 Duas Essentielles'
   };
 
@@ -145,12 +145,66 @@ document.addEventListener('DOMContentLoaded', () => {
     var shareBtn = document.getElementById('shareBtn');
     if (shareBtn) shareBtn.textContent = lang === 'ar' ? '📤 شارك هذا الدليل' : '📤 Partager ce guide';
     localStorage.setItem('hajj-lang', lang);
+    // Update lang switch active state
+    document.querySelectorAll('.lang-opt').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+    // Update share button text
+    var shareText = document.getElementById('shareBtnText');
+    if (shareText) shareText.textContent = lang === 'ar' ? 'شارك هذا الدليل' : 'Partager ce guide';
+    // Close help if open
+    var helpPanel = document.getElementById('helpPanel');
+    if (helpPanel && !helpPanel.classList.contains('hidden')) { helpOpen = false; helpPanel.classList.add('hidden'); }
     renderAll();
   }
 
   window.toggleLang = function() {
     lang = lang === 'fr' ? 'ar' : 'fr';
     applyLang();
+  };
+
+  window.setLang = function(l) {
+    lang = l;
+    applyLang();
+    // Update active state
+    document.querySelectorAll('.lang-opt').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  };
+
+  // Help Panel
+  var helpOpen = false;
+  window.toggleHelp = function() {
+    helpOpen = !helpOpen;
+    var panel = document.getElementById('helpPanel');
+    var titleEl = document.getElementById('helpTitle');
+    var body = document.getElementById('helpBody');
+    if (titleEl) titleEl.textContent = lang === 'ar' ? '❓ دليل الاستخدام' : '❓ Guide d\'utilisation';
+    if (body) {
+      var items = lang === 'ar' ? [
+        {icon:'🕋', text:'<b>حجّي</b> — دليلك يوماً بيوم مع البرنامج والأدعية والتنبيهات'},
+        {icon:'📖', text:'<b>تعلّم</b> — جميع المناسك والأدعية واللباس خطوة بخطوة'},
+        {icon:'✅', text:'<b>استعد</b> — قائمة التحضير والتكاليف والتطبيقات والمواعيد'},
+        {icon:'🔍', text:'<b>المزيد</b> — أسئلة شائعة، صحة، أخطاء، جولة افتراضية'},
+        {icon:'🤲', text:'<b>زر الأدعية</b> (أسفل يسار) — ٦ أدعية أساسية بضغطة واحدة'},
+        {icon:'📅', text:'<b>التقويم</b> — أضف كل البرنامج لجوجل أو تقويم الهاتف'},
+        {icon:'🌙', text:'<b>الوضع الداكن</b> — اضغط على ☀️/🌙 في الأعلى'},
+        {icon:'📤', text:'<b>المشاركة</b> — شارك الدليل مع أصدقائك عبر واتساب'}
+      ] : [
+        {icon:'🕋', text:'<b>Mon Hajj</b> — Votre guide jour par jour avec programme, duas et alertes'},
+        {icon:'📖', text:'<b>Apprendre</b> — Tous les rituels, duas, tenue, pas à pas'},
+        {icon:'✅', text:'<b>Préparer</b> — Checklist, coûts, apps, dates, inscription Nusuk'},
+        {icon:'🔍', text:'<b>Plus</b> — FAQ, santé, erreurs, quiz, tour virtuel, Médine'},
+        {icon:'🤲', text:'<b>Bouton Duas</b> (en bas à gauche) — 6 duas essentielles en 1 clic'},
+        {icon:'📅', text:'<b>Calendrier</b> — Ajoutez tout le programme à Google Calendar ou .ics'},
+        {icon:'🌙', text:'<b>Mode sombre</b> — Cliquez sur ☀️/🌙 en haut'},
+        {icon:'📤', text:'<b>Partager</b> — Envoyez ce guide à vos proches via WhatsApp'}
+      ];
+      body.innerHTML = items.map(function(item) {
+        return '<div class="help-item"><span class="help-icon">' + item.icon + '</span>' + item.text + '</div>';
+      }).join('');
+    }
+    if (panel) panel.classList.toggle('hidden', !helpOpen);
   };
 
   // Theme
@@ -250,6 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function renderAll() {
+    fcs = [...((lang === "ar" && HAJJ_DATA.flashcardsAr) ? HAJJ_DATA.flashcardsAr : HAJJ_DATA.flashcards)]; fcIdx = 0;
     renderSBS(); renderTL(); renderRit(); renderCK(); renderCL(); renderDua(); renderFC(); renderHP(); renderFQ(); renderClassif(); renderMap(); renderNusuk(); renderLinks(); renderTour(); renderHandicap(); renderPractical(); renderHeat(); renderErrors(); renderTypes(); renderMedina(); renderApps(); renderCosts(); renderDates(); renderCompanion(); showPlusGrid();
   }
 
@@ -336,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (id === 'flashcards') {
       const f = fcs[fcIdx];
-      content.innerHTML = `<button class="explore-back" onclick="showPlusGrid()">' + T('backBtn') + '</button>
+      content.innerHTML = `<button class="explore-back" onclick="showPlusGrid()">${T('backBtn')}</button>
         <div style="text-align:center;margin-bottom:16px"><button class="fc-b" onclick="xfcP()">⬅️</button> <span id="xfcC">${fcIdx+1}/${fcs.length}</span> <button class="fc-b" onclick="xfcN()">➡️</button></div>
         <div class="fc-area"><div class="fc" onclick="this.classList.toggle('flip')">
           <div class="fc-face fc-front"><div class="fc-lbl">Question</div><div class="fc-q">${f.q}</div></div>
@@ -348,7 +403,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const src = sourceMap[id];
     if (src && document.getElementById(src)) {
-      content.innerHTML = `<button class="explore-back" onclick="showPlusGrid()">' + T('backBtn') + '</button>` + document.getElementById(src).innerHTML;
+      content.innerHTML = `<button class="explore-back" onclick="showPlusGrid()">${T('backBtn')}</button>` + document.getElementById(src).innerHTML;
       content.querySelectorAll('.fq-q').forEach(q => {
         q.onclick = () => q.parentElement.classList.toggle('open');
       });
@@ -384,12 +439,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============ STEP BY STEP ============
   function renderSBS() {
     const c = document.getElementById('stepsContainer');
-    if (!HAJJ_DATA.stepByStep) return;
+    const sbsData = (lang === "ar" && HAJJ_DATA.stepByStepAr) ? HAJJ_DATA.stepByStepAr : HAJJ_DATA.stepByStep; if (!sbsData) return;
     let si = 0, doneCount = Object.keys(done).length;
 
-    let h = `<div class="sbs-prog"><div class="sbs-pbar"><div class="sbs-pfill" style="width:${doneCount/22*100}%"></div></div><span class="sbs-ptxt">${doneCount}/22 ' + T('progressSteps') + '</span></div>`;
+    let h = `<div class="sbs-prog"><div class="sbs-pbar"><div class="sbs-pfill" style="width:${doneCount/22*100}%"></div></div><span class="sbs-ptxt">${doneCount}/22 ${T('progressSteps')}</span></div>`;
 
-    h += HAJJ_DATA.stepByStep.map(phase => {
+    h += sbsData.map(phase => {
       let ph = `<div class="sbs-phase"><div class="sbs-ph" style="border-left-color:${phase.color}"><span>${phase.icon}</span> ${phase.phase}</div><div class="sbs-list">`;
       ph += phase.steps.map(step => {
         si++;
@@ -409,7 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
               const hasLabel = parts.length > 1 && parts[0].length < 50;
               return `<div class="how-card"><div class="how-num">${i+1}</div><div class="how-txt">${hasLabel ? '<b>'+parts[0]+'</b>: '+parts.slice(1).join(':') : x}</div></div>`;
             }).join('')}</div>
-            ${step.tips ? `<div class="tip-box"><b>'+T('tipLabel')+' :</b> ${step.tips}</div>` : ''}
+            ${step.tips ? `<div class="tip-box"><b>${T('tipLabel')} :</b> ${step.tips}</div>` : ''}
             ${step.erreurs && step.erreurs.length ? `<div class="err-box"><b>⚠️ Erreurs à éviter :</b><ul>${step.erreurs.map(e=>`<li>${e}</li>`).join('')}</ul></div>` : ''}
           </div></div>
         </div>`;
@@ -434,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ============ TIMELINE ============
   function renderTL() {
     const c = document.getElementById('timelineContainer');
-    c.innerHTML = `<div class="tl-wrap">${HAJJ_DATA.timeline.map((d,i) => `
+    c.innerHTML = `<div class="tl-wrap">${((lang === "ar" && HAJJ_DATA.timelineAr) ? HAJJ_DATA.timelineAr : HAJJ_DATA.timeline).map((d,i) => `
       <div class="tl-day">
         <div class="tl-dot">${i+1}</div>
         <div class="tl-card" onclick="this.classList.toggle('expanded')">
@@ -526,7 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </svg>`;
     document.getElementById('clothingContainer').innerHTML = `
       <div style="background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);padding:18px;box-shadow:var(--sh);margin-bottom:16px;overflow:hidden">${ihramSvg}</div>
-      ${HAJJ_DATA.clothing.map(c => `
+      ${((lang === "ar" && HAJJ_DATA.clothingAr) ? HAJJ_DATA.clothingAr : HAJJ_DATA.clothing).map(c => `
         <div style="background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);padding:20px;box-shadow:var(--sh);margin-bottom:12px">
           <h3 style="font-family:var(--fd);font-size:1.1rem;color:var(--grn);margin-bottom:10px">${c.title}</h3>
           <p style="font-size:.88rem;color:var(--t2);line-height:1.65;margin-bottom:12px">${c.content}</p>
@@ -631,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ CLASSIFICATION ============
   function renderClassif() {
-    const d = HAJJ_DATA.classification; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.classificationAr) ? HAJJ_DATA.classificationAr : HAJJ_DATA.classification; if (!d) return;
     const pyramidSvg = `<svg viewBox="0 0 500 160" style="width:100%;max-width:500px;height:auto;margin:0 auto 16px;display:block">
       <polygon points="250,10 400,65 100,65" fill="rgba(220,53,69,.12)" stroke="#dc3545" stroke-width="2"/>
       <text x="250" y="48" text-anchor="middle" font-size="10" fill="#dc3545" font-weight="700">🔴 ARKAAN (4 Piliers)</text>
@@ -668,7 +723,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ MAP / DISTANCES ============
   function renderMap() {
-    const d = HAJJ_DATA.mapDistances; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.mapDistancesAr) ? HAJJ_DATA.mapDistancesAr : HAJJ_DATA.mapDistances; if (!d) return;
     // SVG Map of Hajj route
     const mapSvg = `<svg viewBox="0 0 700 340" style="width:100%;height:auto;margin:0 auto;display:block" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -748,7 +803,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ NUSUK INFO ============
   function renderNusuk() {
-    const d = HAJJ_DATA.nusukInfo; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.nusukInfoAr) ? HAJJ_DATA.nusukInfoAr : HAJJ_DATA.nusukInfo; if (!d) return;
     document.getElementById('nusukContainer').innerHTML = `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       <div style="background:linear-gradient(135deg,rgba(30,113,110,.06),transparent);border-radius:var(--rr);padding:18px;border:1px solid var(--brd);margin-bottom:16px">
@@ -783,7 +838,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ EXTERNAL LINKS ============
   function renderLinks() {
-    const d = HAJJ_DATA.externalLinks; if (!d) return;
+    const d = ((lang === "ar" && HAJJ_DATA.externalLinksAr) ? HAJJ_DATA.externalLinksAr : HAJJ_DATA.externalLinks); if (!d) return;
     document.getElementById('linksContainer').innerHTML = `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">🔗 Meilleures Ressources Externes</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">Les meilleurs tutoriels, guides et outils pour préparer votre Hajj.</p></div>
       ${d.map(cat => `
@@ -804,7 +859,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ VIRTUAL TOUR with SVG diagrams ============
   function renderTour() {
-    const d = HAJJ_DATA.virtualTour; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.virtualTourAr) ? HAJJ_DATA.virtualTourAr : HAJJ_DATA.virtualTour; if (!d) return;
     // Animated parcours SVG
     const parcoursW = Math.min(800, window.innerWidth - 40);
     
@@ -849,7 +904,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ HANDICAP / PMR ============
   function renderHandicap() {
-    const d = HAJJ_DATA.handicap; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.handicapAr) ? HAJJ_DATA.handicapAr : HAJJ_DATA.handicap; if (!d) return;
     const catColors = {'♿':'var(--blue)','👴':'var(--gold)','🦯':'var(--teal)','🦻':'var(--rose)','🤰':'var(--grn)','🧠':'var(--gold)'};
     document.getElementById('handicapContainer').innerHTML = `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
@@ -875,7 +930,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ PRACTICAL SITUATIONS ============
   function renderPractical() {
-    const d = HAJJ_DATA.practicalSituations; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.practicalSituationsAr) ? HAJJ_DATA.practicalSituationsAr : HAJJ_DATA.practicalSituations; if (!d) return;
     const severityColors = { important: 'var(--gold)', urgent: 'var(--rose)', info: 'var(--teal)' };
     const severityLabels = { important: '⚠️ Important', urgent: '🚨 Urgent', info: 'ℹ️ Info' };
     const pc = document.getElementById('practicalContainer'); if (!pc) return;
@@ -905,7 +960,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ HEAT SAFETY ============
   function renderHeat() {
-    const d = HAJJ_DATA.heatSafety; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.heatSafetyAr) ? HAJJ_DATA.heatSafetyAr : HAJJ_DATA.heatSafety; if (!d) return;
     const thermoSvg = `<svg viewBox="0 0 120 220" style="width:90px;height:auto;flex-shrink:0">
       <defs><linearGradient id="thG" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#e74c3c"/><stop offset="60%" stop-color="#e74c3c"/><stop offset="100%" stop-color="#f39c12"/></linearGradient></defs>
       <rect x="42" y="20" width="36" height="150" rx="18" fill="var(--acc)" stroke="var(--brd)" stroke-width="2"/>
@@ -962,7 +1017,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ HAJJ TYPES ============
   function renderTypes() {
-    const d = HAJJ_DATA.hajjTypes; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.hajjTypesAr) ? HAJJ_DATA.hajjTypesAr : HAJJ_DATA.hajjTypes; if (!d) return;
     const compSvg = `<svg viewBox="0 0 600 110" style="width:100%;height:auto;margin-bottom:16px">
       <rect width="600" height="110" rx="10" fill="var(--acc)" opacity=".4"/>
       <text x="300" y="18" text-anchor="middle" font-size="9" fill="var(--gold)" font-weight="700">COMPARAISON RAPIDE</text>
@@ -1007,7 +1062,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ MEDINA ============
   function renderMedina() {
-    const d = HAJJ_DATA.medinaGuide; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.medinaGuideAr) ? HAJJ_DATA.medinaGuideAr : HAJJ_DATA.medinaGuide; if (!d) return;
     const r = d.rawdah;
     const rawdahSvg = `<svg viewBox="0 0 500 200" style="width:100%;height:auto;margin:10px 0">
       <rect width="500" height="200" rx="12" fill="var(--acc)" stroke="var(--brd)" stroke-width="1" opacity=".5"/>
@@ -1057,7 +1112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ APPS ============
   function renderApps() {
-    const d = HAJJ_DATA.recommendedApps; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.recommendedAppsAr) ? HAJJ_DATA.recommendedAppsAr : HAJJ_DATA.recommendedApps; if (!d) return;
     document.getElementById('appsContainer').innerHTML = `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:16px">
@@ -1087,7 +1142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ COSTS ============
   function renderCosts() {
-    const d = HAJJ_DATA.costs; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.costsAr) ? HAJJ_DATA.costsAr : HAJJ_DATA.costs; if (!d) return;
     // Parse the avg value to get a number for bar width (rough mapping)
     const avgMap = {'France':9500,'Royaume-Uni':8000,'États-Unis':12000,'Canada':13000,'Algérie':6000,'Maroc':8000,'Tunisie':7000};
     const maxAvg = 13000;
@@ -1115,7 +1170,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ============ DATES ============
   function renderDates() {
-    const d = HAJJ_DATA.hajjDates; if (!d) return;
+    const d = (lang === "ar" && HAJJ_DATA.hajjDatesAr) ? HAJJ_DATA.hajjDatesAr : HAJJ_DATA.hajjDates; if (!d) return;
     
     // Full MAI 2026 calendar grid
     // Mai 2026: starts on Friday (Ven=5), 31 days

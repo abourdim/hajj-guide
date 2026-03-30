@@ -37,16 +37,24 @@ html{scroll-behavior:smooth}
 [lang="ar"] .logo{flex-direction:row-reverse}
 [lang="ar"] .scroll-top{right:auto;left:24px}
 
-/* Language toggle button */
-.lang-btn{border:1px solid var(--gold);background:transparent;color:var(--gold);padding:5px 12px;border-radius:16px;cursor:pointer;font-size:.78rem;font-weight:700;font-family:var(--fa),serif;transition:.3s;letter-spacing:0}
-.lang-btn:hover{background:var(--gold);color:#fff}
+/* LANGUAGE SWITCH */
+.lang-switch{display:flex;background:var(--acc);border-radius:18px;padding:2px;border:1px solid var(--brd)}
+.lang-opt{border:none;background:0;padding:5px 12px;border-radius:16px;cursor:pointer;font-size:.78rem;font-weight:700;color:var(--t3);transition:.3s;font-family:var(--fu)}
+.lang-opt.active{background:var(--gold);color:#fff;box-shadow:0 1px 4px rgba(200,168,78,.3)}
+.lang-opt:hover:not(.active){color:var(--t1)}
+[lang="ar"] .lang-opt{font-family:var(--fa),serif}
 [data-theme="dark"]{--bg:#1a1612;--card:#2a241e;--acc:#332c24;--t1:#ede6d8;--t2:#b8a88e;--t3:#8a7a66;--brd:#3d362c;--gold:#d4b45c;--grn:#4fb87a;--teal:#38bfb0;--sh:0 2px 12px rgba(0,0,0,.3);--shm:0 6px 24px rgba(0,0,0,.4)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--ff);background:var(--bg);color:var(--t1);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
 
+/* SACRED BAR — Bismillah + Verse */
+.sacred-bar{text-align:center;padding:5px 16px 3px;background:linear-gradient(135deg,rgba(200,168,78,.08),rgba(46,125,82,.04));border-bottom:1px solid rgba(200,168,78,.12)}
+.sacred-bismillah{font-family:'Amiri',serif;font-size:1.1rem;color:var(--gold);line-height:1.2;direction:rtl}
+.sacred-verse{font-family:'Noto Naskh Arabic',serif;font-size:.6rem;color:var(--grn);direction:rtl;opacity:.5;margin-top:1px}
+
 /* HEADER */
 .app-header{background:var(--card);border-bottom:1px solid var(--brd);position:sticky;top:0;z-index:100;box-shadow:var(--sh)}
-.header-inner{max-width:960px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between}
+.header-inner{max-width:960px;margin:0 auto;padding:6px 16px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:10px}.logo-icon{font-size:1.7rem;filter:drop-shadow(0 2px 4px rgba(200,168,78,.3))}
 .logo h1{font-family:var(--fd);font-size:1.2rem;color:var(--gold);line-height:1.1;letter-spacing:.5px}
 .logo-sub{font-size:.68rem;color:var(--t3);letter-spacing:.5px}
@@ -55,27 +63,22 @@ body{font-family:var(--ff);background:var(--bg);color:var(--t1);-webkit-font-smo
 .theme-btn:hover{transform:scale(1.1);box-shadow:var(--sh)}
 @media(max-width:600px){.ml{display:none}}
 
+/* BISMILLAH — at very top */
+
 /* HERO — collapsible on scroll */
-.hero{padding:48px 20px 40px;text-align:center;background:linear-gradient(160deg,var(--acc),var(--bg) 50%,rgba(200,168,78,.04));position:relative;overflow:hidden;transition:all .4s}
-.hero.mini{padding:14px 20px 10px}
+.hero{padding:12px 20px 14px;text-align:center;background:linear-gradient(160deg,var(--acc),var(--bg) 50%,rgba(200,168,78,.04));position:relative;overflow:hidden;transition:all .4s}
+.hero.mini{padding:6px 16px 6px}
 .hero.mini .hero-char{font-size:0;margin:0;height:0;overflow:hidden}
-.hero.mini .hero-title{font-size:1rem;margin:0 0 4px}
-.hero.mini .hero-desc,.hero.mini .hero-verse,.hero.mini .bismillah{display:none}
+.hero.mini .hero-title{font-size:.9rem;margin:0 0 2px}
 .hero.mini .search-wrap{margin:0 auto;max-width:340px}
 
-/* BISMILLAH — sacred calligraphy */
-.bismillah{font-family:'Amiri',serif;font-size:2rem;color:var(--gold);margin-bottom:12px;direction:rtl;letter-spacing:1px;opacity:.85;text-shadow:0 1px 3px rgba(200,168,78,.15);line-height:1.6}
-
 /* QURAN VERSE */
-.hero-verse{font-family:'Noto Naskh Arabic','Amiri',serif;font-size:1rem;color:var(--grn);direction:rtl;line-height:1.8;margin:6px auto 12px;max-width:520px;opacity:.7;letter-spacing:.5px;padding:8px 16px;border-top:1px solid rgba(200,168,78,.15);border-bottom:1px solid rgba(200,168,78,.15)}
 .hero::before{content:'';position:absolute;inset:0;background-image:var(--isl-pat);opacity:.4}
-.hero::after{content:'✦';position:absolute;bottom:8px;left:50%;transform:translateX(-50%);font-size:.8rem;color:var(--gold);opacity:.4;letter-spacing:12px}
 .hero-content{max-width:600px;margin:0 auto;position:relative}
 .hero-char{font-size:4rem;filter:drop-shadow(0 4px 16px rgba(200,168,78,.35));animation:bob 3s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.hero-bismillah{font-family:'Amiri',serif;direction:rtl;text-shadow:0 1px 3px rgba(200,168,78,.15)}
-.hero-title{font-family:var(--fd);font-size:1.7rem;color:var(--gold);margin:12px 0 6px;letter-spacing:.5px}
-.hero-desc{font-size:.88rem;color:var(--t2);margin-bottom:20px}
+.hero-title{font-family:var(--fd);font-size:1.3rem;color:var(--gold);margin:4px 0 4px;letter-spacing:.5px}
+.hero-desc{font-size:.8rem;color:var(--t2);margin-bottom:10px}
 .search-wrap{display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid var(--brd);border-radius:28px;padding:10px 18px;max-width:400px;margin:0 auto;box-shadow:var(--sh);transition:all .3s}
 .search-wrap:focus-within{box-shadow:var(--shm);border-color:var(--gold)}
 .search-wrap input{border:none;background:0;flex:1;font-size:.88rem;color:var(--t1);outline:none;font-family:inherit}
@@ -241,9 +244,6 @@ body{font-family:var(--ff);background:var(--bg);color:var(--t1);-webkit-font-smo
 .scroll-top.visible{opacity:1;visibility:visible}
 .scroll-top:hover{transform:scale(1.12);box-shadow:0 6px 20px rgba(200,168,78,.5)}
 
-/* SHARE BUTTON */
-.share-btn{border:none;background:var(--acc);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:.3s;border:1px solid var(--brd)}
-.share-btn:hover{transform:scale(1.1);box-shadow:var(--sh)}
 
 /* DUA EMERGENCY FLOAT */
 .dua-float{position:fixed;bottom:24px;left:24px;width:50px;height:50px;border-radius:50%;background:var(--grn);color:#fff;border:none;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 16px rgba(46,125,82,.4);z-index:200;display:flex;align-items:center;justify-content:center;transition:all .3s;animation:duaPulse 3s ease-in-out infinite}
@@ -265,9 +265,23 @@ body{font-family:var(--ff);background:var(--bg);color:var(--t1);-webkit-font-smo
 [lang="ar"] .dua-panel-body .dua-item{border-left:none;border-right:3px solid var(--grn)}
 @media(max-width:480px){.dua-panel{left:10px;right:10px;width:auto;bottom:80px}}
 
+/* HELP BUTTON */
+.help-btn{border:1px solid var(--brd);background:var(--acc);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1rem;font-weight:700;color:var(--gold);display:flex;align-items:center;justify-content:center;transition:.3s;font-family:var(--fd)}
+.help-btn:hover{background:var(--gold);color:#fff}
+/* HELP PANEL */
+.help-panel{position:fixed;top:60px;right:16px;width:320px;max-height:80vh;background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);box-shadow:var(--shm);z-index:201;overflow:hidden;transition:all .3s}
+.help-panel.hidden{transform:translateY(-10px);opacity:0;pointer-events:none}
+.help-panel-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:linear-gradient(135deg,rgba(200,168,78,.08),transparent);border-bottom:1px solid var(--brd);font-weight:700;font-size:.9rem;color:var(--gold)}
+.help-panel-body{padding:14px;overflow-y:auto;max-height:65vh;font-size:.82rem;color:var(--t2);line-height:1.7}
+.help-panel-body .help-item{padding:10px 0;border-bottom:1px solid var(--brd)}
+.help-panel-body .help-item:last-child{border-bottom:none}
+[lang="ar"] .help-panel{right:auto;left:16px}
+@media(max-width:480px){.help-panel{right:8px;left:8px;width:auto}}
+/* SHARE in hero */
+
 /* RESPONSIVE */
 @media(max-width:768px){.grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr}.explore-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}}
-@media(max-width:480px){.hero{padding:30px 14px 28px}.tl-wrap{padding-left:28px}.tl-wrap::before{left:10px}.tl-dot{left:-24px;width:18px;height:18px;font-size:.58rem}.sbs-list{margin-left:10px;padding-left:6px}.explore-grid{grid-template-columns:repeat(2,1fr);gap:10px}.tab{padding:10px 0}.ti{font-size:1rem}.tabs{top:44px}.hero-char{font-size:3rem}.hero-title{font-size:1.4rem}}
+@media(max-width:480px){.hero{padding:14px 14px 18px}.tl-wrap{padding-left:28px}.tl-wrap::before{left:10px}.tl-dot{left:-24px;width:18px;height:18px;font-size:.58rem}.sbs-list{margin-left:10px;padding-left:6px}.explore-grid{grid-template-columns:repeat(2,1fr);gap:10px}.tab{padding:10px 0}.ti{font-size:1rem}.tabs{top:44px}.hero-char{font-size:3rem}.hero-title{font-size:1.4rem}}
 
 /* PRINT */
 @media print{.app-header,.tabs,.hero,.scroll-top,.search-wrap,.sub-tabs,.explore-back,.fc-b,.fbtn,.ck-filters,.theme-btn{display:none!important}body{background:#fff;color:#000;font-size:11pt}.content{padding:0;max-width:100%}.panel{display:block!important;page-break-inside:avoid}.fq-a{max-height:none!important}a{color:#000;text-decoration:underline}}
