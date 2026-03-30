@@ -32,15 +32,15 @@ test.describe('Language Switch', () => {
 
   test('UI text translates to Arabic', async ({ page }) => {
     await page.locator('.lang-opt[data-lang="ar"]').click();
-    await expect(page.locator('#heroTitle')).toHaveText('الدليل الشامل للحج');
     await expect(page.locator('#tabMonHajj')).toHaveText('حجّي');
+    await expect(page.locator('#logoTitle')).toHaveText('دليل الحج');
   });
 
   test('UI text translates back to French', async ({ page }) => {
     await page.locator('.lang-opt[data-lang="ar"]').click();
     await page.locator('.lang-opt[data-lang="fr"]').click();
-    await expect(page.locator('#heroTitle')).toHaveText('Guide Complet du Hajj');
     await expect(page.locator('#tabApprendre')).toHaveText('Apprendre');
+    await expect(page.locator('#logoTitle')).toHaveText('Guide du Hajj');
   });
 
   test('language persisted in localStorage', async ({ page }) => {

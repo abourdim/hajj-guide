@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Arabic UI translations
   const AR = {
     logoTitle: 'دليل الحج', logoSub: 'الدليل الشامل للحاج',
-    heroTitle: 'الدليل الشامل للحج', heroDesc: 'كل خطوة بالتفصيل، من التسجيل حتى العودة 🤲',
+    heroDesc: 'كل خطوة بالتفصيل، من التسجيل حتى العودة 🤲',
     searchPlaceholder: 'ابحث عن موضوع، شعيرة، دعاء...',
     tabMonHajj: 'حجّي', tabApprendre: 'تعلّم', tabPreparer: 'استعد', tabPlus: 'المزيد',
     footText: '🕋 دليل الحج — تقبّل الله حجّكم 🤲',
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const FR = {
     logoTitle: 'Guide du Hajj', logoSub: 'Guide Complet du Pèlerin',
-    heroTitle: 'Guide Complet du Hajj', heroDesc: 'Chaque étape en détail, de l\'inscription au retour. 🤲',
+    heroDesc: 'Chaque étape en détail, de l\'inscription au retour. 🤲',
     searchPlaceholder: 'Rechercher un sujet, un rituel, un dua...',
     tabMonHajj: 'Mon Hajj', tabApprendre: 'Apprendre', tabPreparer: 'Préparer', tabPlus: 'Plus',
     footText: '🕋 Guide du Hajj — Qu\'Allah accepte votre Hajj 🤲',
@@ -113,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
     var el = function(id, txt) { var e = document.getElementById(id); if (e) e.textContent = txt; };
     el('logoTitle', T('logoTitle'));
     el('logoSub', T('logoSub'));
-    el('heroTitle', T('heroTitle'));
     el('heroDesc', T('heroDesc'));
     el('tabMonHajj', T('tabMonHajj'));
     el('tabApprendre', T('tabApprendre'));
