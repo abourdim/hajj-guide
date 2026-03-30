@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scheduleTitle: '⏰ برنامج اليوم', duasTitle: '🤲 الأدعية الأساسية',
     packTitle: '🎒 ما تحمله', alertsTitle: '🚨 تنبيهات',
     youAreHere: '📍 أنت هنا : ',
-    dayNames: ['🏕️ ي١ منى','⛰️ ي٢ عرفة','🎉 ي٣ العيد','🪨 ي٤ التشريق','👋 ي٥ الوداع'],
+    dayNames: ['🏕️ يوم ١ - منى','⛰️ يوم ٢ - عرفة','🎉 يوم ٣ - العيد','🪨 يوم ٤ - التشريق','👋 يوم ٥ - الوداع'],
     dayLocations: ['مكة ← منى','منى ← عرفة','منى · مكة','منى','مكة'],
     mapLabels: ['الكعبة','منى','عرفة','مزدلفة','الجمرات'],
     // Plus grid
@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scheduleTitle: '⏰ Programme de la journée', duasTitle: '🤲 Duas essentielles',
     packTitle: '🎒 À emporter', alertsTitle: '🚨 Alertes',
     youAreHere: '📍 Vous êtes ici : ',
-    dayNames: ['🏕️ J1 Mina','⛰️ J2 Arafat','🎉 J3 Aïd','🪨 J4 Tashriq','👋 J5 Adieu'],
+    dayNames: ['🏕️ Jour 1 - Mina','⛰️ Jour 2 - Arafat','🎉 Jour 3 - Aïd','🪨 Jour 4 - Tashriq','👋 Jour 5 - Adieu'],
     dayLocations: ['Makkah → Mina','Mina → Arafat','Mina · Makkah','Mina','Makkah'],
     mapLabels: ['Kaaba','Mina','Arafat','Muzdalifa','Jamarat'],
     plusFaq: 'FAQ', plusErrors: 'Top 10 Erreurs', plusPractical: 'Questions Pratiques',
