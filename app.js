@@ -1396,7 +1396,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var jcol = dayColors[j];
         strip += '<button onclick="selectHajjDay(' + j + ')" style="flex:1;min-width:60px;padding:10px 6px;border-radius:var(--rr);border:2px solid ' + (isActive ? jcol : 'var(--brd)') + ';background:' + (isActive ? jcol + '18' : 'var(--card)') + ';cursor:pointer;text-align:center;transition:.3s;box-shadow:' + (isActive ? '0 4px 12px ' + jcol + '30' : 'var(--sh)') + '">';
         strip += '<div style="font-size:1.2rem;margin-bottom:2px">' + d[j].emoji + '</div>';
-        strip += '<div style="font-size:.62rem;font-weight:700;color:' + (isActive ? jcol : 'var(--t3)') + ';white-space:nowrap">' + dayShortNames[j].replace(/^.+\s/,'') + '</div>';
+        strip += '<div style="font-size:.62rem;font-weight:700;color:' + (isActive ? jcol : 'var(--t3)') + ';white-space:nowrap">' + dayShortNames[j].replace(/^[^\w\u0600-\u06FF]+/,'') + '</div>';
         strip += '</button>';
       }
       strip += '</div>';
