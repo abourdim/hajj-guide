@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Guide complet du Hajj 2026 pas à pas : rituels, duas, checklist, carte, calendrier. Bilingue français-arabe.">
+    <meta property="og:title" content="Guide Complet du Hajj 2026">
+    <meta property="og:description" content="Chaque étape en détail, de l'inscription au retour. Rituels, duas, checklist, calendrier.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:locale:alternate" content="ar_DZ">
+    <title>Guide Complet du Hajj 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1612">
+</head>
+<body>
+<!-- Splash Screen -->
+<div class="splash" id="splash" onclick="dismissSplash()">
+  <div class="splash-inner">
+    <div class="splash-sub">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="splash-verse">وَأَذِّن فِي النَّاسِ بِالْحَجِّ يَأْتُوكَ رِجَالًا وَعَلَىٰ كُلِّ ضَامِرٍ يَأْتِينَ مِن كُلِّ فَجٍّ عَمِيقٍ</div>
+    <div class="splash-icon">🕋</div>
+    <div class="splash-title" id="splashTitle">Guide du Hajj</div>
+    <div class="splash-guide" id="splashGuide"></div>
+    <div class="splash-countdown"><span class="splash-count" id="splashCount">13</span></div>
+    <div class="splash-hint" id="splashHint">tap to skip</div>
+    <a class="splash-credit" href="https://workshop-diy.org" target="_blank" rel="noopener" onclick="event.stopPropagation()"><div class="splash-credit-logo" id="splashCreditLogo"></div><span>Powered by workshop-diy.org</span></a>
+  </div>
+</div>
+
+<!-- Deco band top -->
+<div class="deco-band top-band" aria-hidden="true"></div>
+
+<!-- Bismillah + Verse — compact sacred bar -->
+<div class="sacred-bar">
+  <div class="sacred-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+  <div class="sacred-verse">وَأَذِّن فِي النَّاسِ بِالْحَجِّ يَأْتُوكَ رِجَالًا وَعَلَىٰ كُلِّ ضَامِرٍ يَأْتِينَ مِن كُلِّ فَجٍّ عَمِيقٍ</div>
+</div>
+
+<header class="app-header">
+    <div class="header-inner">
+        <a href="https://workshop-diy.org" target="_blank" rel="noopener" class="workshop-logo" id="workshopLogo" onclick="var el=this;el.classList.add('logo-exit');setTimeout(function(){el.classList.remove('logo-exit')},700)"></a>
+        <div class="logo"><span class="logo-icon">🕋</span><h1 id="logoTitle">Guide du Hajj</h1><span class="app-version">v1.0</span></div>
+        <nav class="header-controls">
+            <button class="search-toggle" id="searchToggle" aria-label="Rechercher" onclick="toggleSearch()">🔍</button>
+            <div class="lang-switch" id="langSwitch">
+                <button class="lang-opt active" data-lang="fr" onclick="setLang('fr')"><svg width="20" height="14" viewBox="0 0 30 20"><rect width="10" height="20" fill="#002395"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#ED2939"/></svg></button>
+                <button class="lang-opt" data-lang="ar" onclick="setLang('ar')"><svg width="20" height="14" viewBox="0 0 30 20"><rect width="15" height="20" fill="#006233"/><rect x="15" width="15" height="20" fill="#fff"/><circle cx="16.5" cy="10" r="5" fill="#D21034"/><circle cx="18" cy="10" r="4" fill="#fff"/><circle cx="17" cy="10" r="4" fill="#006233"/><polygon points="17,6 18,9 21,9 18.5,11 19.5,14 17,12 14.5,14 15.5,11 13,9 16,9" fill="#D21034" transform="scale(0.6) translate(14,7)"/></svg></button>
+                <button class="lang-opt" data-lang="en" onclick="setLang('en')"><svg width="20" height="14" viewBox="0 0 30 20"><rect width="30" height="20" fill="#012169"/><path d="M0,0L30,20M30,0L0,20" stroke="#fff" stroke-width="3"/><path d="M0,0L30,20M30,0L0,20" stroke="#C8102E" stroke-width="1.5"/><rect x="12" width="6" height="20" fill="#fff"/><rect y="7" width="30" height="6" fill="#fff"/><rect x="13" width="4" height="20" fill="#C8102E"/><rect y="8" width="30" height="4" fill="#C8102E"/></svg></button>
+            </div>
+            <button class="theme-btn" id="themeToggle" aria-label="Changer le thème"><span class="theme-icon">🌙</span></button>
+            <button class="help-btn" id="helpBtn" onclick="toggleHelp()" title="Aide" aria-label="Aide" aria-expanded="false">?</button>
+        </nav>
+    </div>
+    <div class="header-search hidden" id="headerSearch">
+        <div class="search-wrap"><label for="globalSearch" class="sr-only">Rechercher</label><span aria-hidden="true">🔍</span><input type="text" id="globalSearch" placeholder="Rechercher un sujet, un rituel, un dua..."></div>
+    </div>
+</header>
+
+<main class="content">
+    <!-- TAB 1: MON HAJJ -->
+    <section class="panel active" id="panel-monhajj">
+        <div id="companionContainer"></div>
+    </section>
+
+    <!-- TAB 2: APPRENDRE -->
+    <section class="panel" id="panel-apprendre">
+        <div class="sub-tabs">
+            <button class="stab active" data-sub="learn-steps">🚶 Pas à Pas</button>
+            <button class="stab" data-sub="learn-days">📅 Jours</button>
+            <button class="stab" data-sub="learn-rituals">🕌 Rituels</button>
+            <button class="stab" data-sub="learn-duas">🤲 Duas</button>
+            <button class="stab" data-sub="learn-clothing">👘 Tenue</button>
+            <button class="stab" data-sub="learn-classif">📊 Niveaux</button>
+            <button class="stab" data-sub="learn-types">⚖️ 3 Types</button>
+            <button class="stab" data-sub="learn-map">🗺️ Carte</button>
+            <button class="stab" data-sub="learn-omra">🕌 Omra</button>
+        </div>
+        <div class="sub-panel active" id="sub-learn-steps"><div id="stepsContainer"></div></div>
+        <div class="sub-panel" id="sub-learn-days"><div id="timelineContainer"></div></div>
+        <div class="sub-panel" id="sub-learn-rituals"><div class="grid" id="ritualsContainer"></div></div>
+        <div class="sub-panel" id="sub-learn-duas"><div id="duasContainer"></div></div>
+        <div class="sub-panel" id="sub-learn-clothing"><div id="clothingContainer"></div></div>
+        <div class="sub-panel" id="sub-learn-classif"><div id="classifContainer"></div></div>
+        <div class="sub-panel" id="sub-learn-types"><div id="typesContainer"></div></div>
+        <div class="sub-panel" id="sub-learn-map"><div id="mapContainer"></div></div>
+        <div class="sub-panel" id="sub-learn-omra"><div id="omraContainer"></div></div>
+    </section>
+
+    <!-- TAB 3: PRÉPARER -->
+    <section class="panel" id="panel-preparer">
+        <div class="sub-tabs">
+            <button class="stab active" data-sub="prep-checklist">✅ Checklist</button>
+            <button class="stab" data-sub="prep-dates">🗓️ Dates</button>
+            <button class="stab" data-sub="prep-costs">💰 Coûts</button>
+            <button class="stab" data-sub="prep-apps">📱 Apps</button>
+            <button class="stab" data-sub="prep-nusuk">🌐 Nusuk</button>
+        </div>
+        <div class="sub-panel active" id="sub-prep-checklist">
+            <div class="ck-progress"><div class="ck-bar"><div class="ck-fill" id="progressFill"></div></div><span id="progressText">0/0</span></div>
+            <div class="ck-filters"><button class="fbtn active" data-filter="all">Tout</button><button class="fbtn" data-filter="documents">📄 Docs</button><button class="fbtn" data-filter="vetements">👘 Habits</button><button class="fbtn" data-filter="sante">💊 Santé</button><button class="fbtn" data-filter="divers">🎒 Divers</button></div>
+            <div id="checklistContainer"></div>
+        </div>
+        <div class="sub-panel" id="sub-prep-dates"><div id="datesContainer"></div></div>
+        <div class="sub-panel" id="sub-prep-costs"><div id="costsContainer"></div></div>
+        <div class="sub-panel" id="sub-prep-apps"><div id="appsContainer"></div></div>
+        <div class="sub-panel" id="sub-prep-nusuk"><div id="nusukContainer"></div></div>
+    </section>
+
+    <!-- TAB 4: PLUS -->
+    <section class="panel" id="panel-plus">
+        <div id="plusGrid"></div>
+        <div id="plusContent" style="display:none"></div>
+    </section>
+</main>
+
+<!-- Help Panel -->
+<div id="helpPanel" class="help-panel hidden">
+  <div class="help-panel-header">
+    <span id="helpTitle">❓ Guide d'utilisation</span>
+    <button onclick="toggleHelp()" style="border:none;background:0;font-size:1.2rem;cursor:pointer;color:var(--t3)">✕</button>
+  </div>
+  <div class="help-panel-body" id="helpBody"></div>
+</div>
+
+<!-- Deco band bottom -->
+<div class="deco-band bottom-band" aria-hidden="true"></div>
+
+
+<!-- Toast -->
+<div id="toastIndicator" class="toast-indicator">
+  <div class="toast-inner">
+    <div class="spinner"></div>
+    <div id="toastMessage" class="toast-text"></div>
+  </div>
+</div>
+<button id="scrollTop" class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Haut de page" aria-label="Retour en haut de page">↑</button>
+<button id="duaBtn" class="dua-float" onclick="toggleDuaPanel()" aria-label="Duas essentielles" aria-expanded="false">🤲</button>
+<div id="duaPanel" class="dua-panel hidden">
+  <div class="dua-panel-header">
+    <span id="duaPanelTitle">🤲 Duas Essentielles</span>
+    <button onclick="toggleDuaPanel()" style="border:none;background:0;font-size:1.2rem;cursor:pointer;color:var(--t3)">✕</button>
+  </div>
+  <div id="duaPanelContent" class="dua-panel-body"></div>
+</div>
+<noscript><p style="text-align:center;padding:40px 20px;font-size:1.1rem;color:#6b5d4d">Ce guide nécessite JavaScript pour fonctionner. Veuillez activer JavaScript dans votre navigateur.</p></noscript>
+<!-- Bottom tab bar -->
+<nav class="tabs" id="mainTabs" role="tablist" aria-label="Sections principales">
+    <div class="tabs-meta"><div class="ticker-wrap"><div id="tickerText" class="ticker-text"></div></div></div>
+    <span id="poweredBy" style="display:none"></span>
+    <div class="tabs-row">
+        <button class="tab active" data-tab="monhajj"><span class="ti">🕋</span><span class="tl" id="tabMonHajj">Mon Hajj</span></button>
+        <button class="tab" data-tab="apprendre"><span class="ti">📖</span><span class="tl" id="tabApprendre">Apprendre</span></button>
+        <button class="tab" data-tab="preparer"><span class="ti">✅</span><span class="tl" id="tabPreparer">Préparer</span></button>
+        <button class="tab" data-tab="plus"><span class="ti">🔍</span><span class="tl" id="tabPlus">Plus</span></button>
+    </div>
+</nav>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

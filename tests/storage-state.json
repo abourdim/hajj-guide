@@ -1,0 +1,7 @@
+{
+  "cookies": [],
+  "origins": [{
+    "origin": "http://localhost:3847",
+    "localStorage": [{"name": "hajj-skip-splash", "value": "1"}]
+  }]
+}

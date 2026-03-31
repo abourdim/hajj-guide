@@ -1,0 +1,12 @@
+{
+  "name": "Guide Complet du Hajj 2026",
+  "short_name": "Hajj Guide",
+  "description": "Guide complet du Hajj pas à pas : rituels, duas, checklist, calendrier. Bilingue français-arabe.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#1a1612",
+  "theme_color": "#1a1612",
+  "lang": "fr",
+  "dir": "ltr",
+  "icons": []
+}
