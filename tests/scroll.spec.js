@@ -24,13 +24,6 @@ test.describe('Scroll Behavior', () => {
     await expect(page.locator('#scrollTop')).not.toHaveClass(/visible/);
   });
 
-  test('hero collapses to mini on scroll', async ({ page }) => {
-    await expect(page.locator('.hero')).not.toHaveClass(/mini/);
-    await page.evaluate(() => window.scrollTo(0, 200));
-    await page.waitForTimeout(200);
-    await expect(page.locator('.hero')).toHaveClass(/mini/);
-  });
-
   test('clicking scroll-top scrolls to top', async ({ page }) => {
     await page.evaluate(() => window.scrollTo(0, 800));
     await page.waitForTimeout(200);
@@ -38,5 +31,29 @@ test.describe('Scroll Behavior', () => {
     await page.waitForTimeout(500);
     const scrollY = await page.evaluate(() => window.scrollY);
     expect(scrollY).toBeLessThan(50);
+  });
+});
+
+test.describe('Header Search Toggle', () => {
+  test('search bar is hidden by default', async ({ page }) => {
+    await expect(page.locator('#headerSearch')).toHaveClass(/hidden/);
+  });
+
+  test('clicking search icon shows search bar', async ({ page }) => {
+    await page.locator('#searchToggle').click();
+    await expect(page.locator('#headerSearch')).not.toHaveClass(/hidden/);
+  });
+
+  test('clicking search icon again hides search bar', async ({ page }) => {
+    await page.locator('#searchToggle').click();
+    await page.locator('#searchToggle').click();
+    await expect(page.locator('#headerSearch')).toHaveClass(/hidden/);
+  });
+
+  test('search input gets focus when opened', async ({ page }) => {
+    await page.locator('#searchToggle').click();
+    await page.waitForTimeout(100);
+    const focused = await page.evaluate(() => document.activeElement.id);
+    expect(focused).toBe('globalSearch');
   });
 });

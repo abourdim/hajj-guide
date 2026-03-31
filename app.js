@@ -240,15 +240,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Scroll-to-top button + hero collapse
+  // Scroll-to-top button
   const scrollTopBtn = document.getElementById('scrollTop');
-  const heroEl = document.querySelector('.hero');
   if (scrollTopBtn) {
     window.addEventListener('scroll', () => {
       scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
-      if (heroEl) heroEl.classList.toggle('mini', window.scrollY > 150);
     }, {passive: true});
   }
+
+  // Search toggle in header
+  var searchOpen = false;
+  window.toggleSearch = function() {
+    searchOpen = !searchOpen;
+    var panel = document.getElementById('headerSearch');
+    if (panel) {
+      panel.classList.toggle('hidden', !searchOpen);
+      if (searchOpen) document.getElementById('globalSearch').focus();
+    }
+  };
 
   // Emergency Duas Panel
   var duaPanelOpen = false;
