@@ -113,7 +113,7 @@
 
   // ═══ VOICE SELECTION ═══
   function getLang() {
-    return (typeof lang !== 'undefined') ? lang : 'fr';
+    return document.documentElement.lang || 'fr';
   }
 
   function loadVoices() {
