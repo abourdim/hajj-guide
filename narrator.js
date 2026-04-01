@@ -846,14 +846,15 @@
     updateLabels();
     setTimeout(injectSpeakButtons, 500);
     // Repopulate voices and labels when language changes
-    const origSetLang = window.setLang;
-    if (origSetLang) {
-      window.setLang = function(l) {
-        origSetLang(l);
-        setTimeout(() => { populateVoiceSelect(); updateLabels(); injectSpeakButtons(); }, 100);
+    var lastLang = document.documentElement.lang || 'fr';
+    new MutationObserver(function() {
+      var newLang = document.documentElement.lang || 'fr';
+      if (newLang !== lastLang) {
+        lastLang = newLang;
+        setTimeout(function() { populateVoiceSelect(); updateLabels(); injectSpeakButtons(); }, 100);
         if (STATE.playing) stopNarrator();
-      };
-    }
+      }
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
     // Re-inject speak buttons when sub-tabs change
     document.addEventListener('click', function(e) {
       if (e.target.classList.contains('stab') || e.target.classList.contains('tab')) {
