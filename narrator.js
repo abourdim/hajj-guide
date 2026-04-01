@@ -192,11 +192,23 @@
     // Also pick up rituals, duas, timeline cards, explore cards if present
     container.querySelectorAll('.rit-card, .dua, .tl-card, .explore-card, .fq').forEach(function(el) {
       if (el.style.display === 'none') return;
-      // Avoid duplicates if already matched by .card
       if (el.classList.contains('card')) return;
       var text = cleanText(el.textContent);
       if (text) cards.push({ el: el, text: text, type: 'card' });
     });
+
+    // Fallback: if no cards found (e.g. companion day view with inline styles),
+    // grab direct child divs with substantial text as cards
+    if (cards.length === 0) {
+      var children = container.children;
+      for (var i = 0; i < children.length; i++) {
+        var child = children[i];
+        var text = cleanText(child.textContent);
+        if (text && text.length > 20) {
+          cards.push({ el: child, text: text, type: 'card' });
+        }
+      }
+    }
 
     return cards;
   }
