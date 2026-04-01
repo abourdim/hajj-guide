@@ -52,6 +52,7 @@
                 <button class="lang-opt" data-lang="en" onclick="setLang('en')"><svg width="20" height="14" viewBox="0 0 30 20"><rect width="30" height="20" fill="#012169"/><path d="M0,0L30,20M30,0L0,20" stroke="#fff" stroke-width="3"/><path d="M0,0L30,20M30,0L0,20" stroke="#C8102E" stroke-width="1.5"/><rect x="12" width="6" height="20" fill="#fff"/><rect y="7" width="30" height="6" fill="#fff"/><rect x="13" width="4" height="20" fill="#C8102E"/><rect y="8" width="30" height="4" fill="#C8102E"/></svg></button>
             </div>
             <button class="theme-btn" id="themeToggle" aria-label="Changer le thème"><span class="theme-icon">🌙</span></button>
+            <button class="narrator-btn" id="narratorMainBtn" onclick="narratorTogglePanel()" aria-label="Narrateur">🎧</button>
             <button class="help-btn" id="helpBtn" onclick="toggleHelp()" title="Aide" aria-label="Aide" aria-expanded="false">?</button>
         </nav>
     </div>
@@ -147,6 +148,78 @@
   <div id="duaPanelContent" class="dua-panel-body"></div>
 </div>
 <noscript><p style="text-align:center;padding:40px 20px;font-size:1.1rem;color:#6b5d4d">Ce guide nécessite JavaScript pour fonctionner. Veuillez activer JavaScript dans votre navigateur.</p></noscript>
+<!-- Narrator Panel -->
+<div id="narratorPanel" class="narrator-panel hidden">
+  <div class="narrator-header">
+    <span class="narrator-title" id="narratorTitle">🎧 Narrateur</span>
+    <button onclick="narratorTogglePanel()" style="border:none;background:0;font-size:1.2rem;cursor:pointer;color:var(--t3)">&#10005;</button>
+  </div>
+  <div class="narrator-body">
+    <!-- Mode buttons -->
+    <div class="narrator-modes">
+      <button class="narrator-mode-btn" onclick="narratorPlayPage()">
+        <span>▶️</span> <span class="narrator-mode-label" data-nr="page">Lire cette page</span>
+      </button>
+      <button class="narrator-mode-btn" onclick="narratorPlayBook()">
+        <span>📖</span> <span class="narrator-mode-label" data-nr="book">Lire comme un livre</span>
+      </button>
+    </div>
+    <!-- Transport controls -->
+    <div class="narrator-controls">
+      <button class="narrator-ctrl" onclick="narratorPrev()">⏮️</button>
+      <button class="narrator-ctrl narrator-ctrl-main" id="narratorPlayPause" onclick="narratorPause()">▶️</button>
+      <button class="narrator-ctrl" onclick="narratorNext()">⏭️</button>
+      <button class="narrator-ctrl" onclick="narratorStop()">⏹️</button>
+    </div>
+    <!-- Progress -->
+    <div class="narrator-progress-wrap">
+      <div class="narrator-bar-bg"><div class="narrator-bar-fill" id="narratorBar"></div></div>
+      <span class="narrator-progress-text" id="narratorProgress">0/0</span>
+    </div>
+    <!-- Settings -->
+    <div class="narrator-settings">
+      <div class="narrator-setting">
+        <label data-nr="voice">Voix</label>
+        <select id="narratorVoice" onchange="narratorVoiceChange(this.value)" onfocus="narratorPopulateVoices()"></select>
+      </div>
+      <div class="narrator-setting">
+        <label data-nr="speed">Vitesse</label>
+        <input type="range" id="narratorSpeed" min="0.5" max="2" step="0.25" value="1" oninput="narratorSpeedChange(this.value)">
+        <span id="narratorSpeedLabel">1x</span>
+      </div>
+      <div class="narrator-setting">
+        <label data-nr="pitch">Tonalité</label>
+        <input type="range" id="narratorPitch" min="0.5" max="1.5" step="0.1" value="1" oninput="narratorPitchChange(this.value)">
+        <span id="narratorPitchLabel">1.0</span>
+      </div>
+      <div class="narrator-setting">
+        <label data-nr="loop">Répéter la carte</label>
+        <select id="narratorLoop" onchange="narratorLoopChange(this.value)">
+          <option value="0" data-nr="off">Désactivé</option>
+          <option value="2">2x</option>
+          <option value="3">3x</option>
+          <option value="5">5x</option>
+          <option value="10">10x</option>
+        </select>
+      </div>
+      <div class="narrator-setting">
+        <label data-nr="sleep">Minuterie</label>
+        <select id="narratorSleep" onchange="narratorSleepChange(this.value)">
+          <option value="0" data-nr="off">Désactivé</option>
+          <option value="5">5 min</option>
+          <option value="15">15 min</option>
+          <option value="30">30 min</option>
+        </select>
+      </div>
+      <div class="narrator-toggles">
+        <label class="narrator-toggle"><input type="checkbox" checked onchange="narratorKaraokeToggle(this.checked)"> <span data-nr="karaoke">Karaoké</span></label>
+        <label class="narrator-toggle"><input type="checkbox" checked onchange="narratorAutoScrollToggle(this.checked)"> <span data-nr="autoscroll">Défilement auto</span></label>
+        <label class="narrator-toggle"><input type="checkbox" onchange="narratorDuoToggle(this.checked)"> <span data-nr="duo">Duo (AR+FR)</span></label>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Bottom tab bar -->
 <nav class="tabs" id="mainTabs" role="tablist" aria-label="Sections principales">
     <div class="tabs-meta"><div class="ticker-wrap"><div id="tickerText" class="ticker-text"></div></div></div>
@@ -160,5 +233,6 @@
 </nav>
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script src="narrator.js"></script>
 </body>
 </html>
