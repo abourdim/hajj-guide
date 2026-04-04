@@ -434,3 +434,4 @@ a.splash-credit:hover{opacity:.6}
 [lang="ar"] .narrator-speak-btn{left:auto;right:8px}
 .narrator-speak-btn:hover{opacity:1;background:rgba(212,181,92,.25);transform:scale(1.15)}
 .narrator-panel *{color:#eee!important}.narrator-panel select{background:#1a1a2e!important;color:#eee!important;border-color:rgba(255,255,255,.2)!important}.narrator-panel .narrator-title{color:#ffcc80!important}.narrator-panel .narrator-mode-btn{color:#eee!important;background:rgba(255,255,255,.08)!important;border-color:rgba(255,255,255,.15)!important}.narrator-panel .narrator-mode-btn:hover{background:rgba(255,255,255,.15)!important}.narrator-panel input[type=range]{accent-color:#ffcc80}
+[data-theme="light"] .card,[data-theme="light"] .step-card,[data-theme="light"] [class*="-card"]{color:var(--t1,#333)!important}
