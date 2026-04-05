@@ -653,6 +653,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Scroll-to-top button
   const scrollTopBtn = document.getElementById('scrollTop');
+  if (!scrollTopBtn) return;
   if (scrollTopBtn) {
     window.addEventListener('scroll', () => {
       scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
@@ -781,7 +782,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function showPlusGrid() {
     const grid = document.getElementById('plusGrid');
+    if (!grid) return;
     const content = document.getElementById('plusContent');
+    if (!content) return;
     if (!grid || !content) return;
     content.style.display = 'none'; content.innerHTML = '';
     grid.style.display = 'block';
@@ -810,7 +813,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.openPlusSection = function(id) {
     const grid = document.getElementById('plusGrid');
+    if (!grid) return;
     const content = document.getElementById('plusContent');
+    if (!content) return;
     grid.style.display = 'none';
     content.style.display = 'block';
     document.getElementById('panel-plus').scrollIntoView({behavior:'smooth',block:'start'});
@@ -1050,7 +1055,8 @@ github.com/abourdim/hajj-guide`;
 
   // ============ TIMELINE ============
   function renderTL() {
-    const c = document.getElementById('timelineContainer'); if (!c) return;
+    const c = document.getElementById('timelineContainer');
+    if (!c) return; if (!c) return;
     const tlData = D('timeline'); if (!tlData) return;
     c.innerHTML = `<div class="tl-wrap">${tlData.map((d,i) => `
       <div class="tl-day">
@@ -1071,7 +1077,8 @@ github.com/abourdim/hajj-guide`;
 
   // ============ RITUALS ============
   function renderRit() {
-    const c = document.getElementById('ritualsContainer'); if (!c) return;
+    const c = document.getElementById('ritualsContainer');
+    if (!c) return; if (!c) return;
     const ritData = D('rituals'); if (!ritData) return;
     c.innerHTML = ritData.map(r => `
       <div class="rit-card">
@@ -1087,7 +1094,8 @@ github.com/abourdim/hajj-guide`;
 
   // ============ CHECKLIST ============
   function renderCK() {
-    const c = document.getElementById('checklistContainer'); if (!c) return;
+    const c = document.getElementById('checklistContainer');
+    if (!c) return; if (!c) return;
     const f = document.querySelector('.fbtn.active')?.dataset.filter || 'all';
     const ckData = D('checklist'); if (!ckData) return;
     const items = ckData.filter(x => f === 'all' || x.cat === f);
@@ -1110,7 +1118,9 @@ github.com/abourdim/hajj-guide`;
   function updProg() {
     const t = HAJJ_DATA.checklist.length, d2 = Object.values(checked).filter(Boolean).length;
     const pf = document.getElementById('progressFill');
+    if (!pf) return;
     const pt = document.getElementById('progressText');
+    if (!pt) return;
     if (pf) pf.style.width = (d2/t*100)+'%';
     if (pt) pt.textContent = d2+'/'+t;
   }
@@ -1214,7 +1224,8 @@ github.com/abourdim/hajj-guide`;
     "Invocation complète — protection": "Complete supplication — protection"
   };
   function renderDua() {
-    const duasC = document.getElementById('duasContainer'); if (!duasC || !HAJJ_DATA.duas) return;
+    const duasC = document.getElementById('duasContainer');
+    if (!duasC) return; if (!duasC || !HAJJ_DATA.duas) return;
     duasC.innerHTML = HAJJ_DATA.duas.map(d => {
       const occ = lang === 'ar' ? (DUA_OCCASIONS_AR[d.occasion] || d.occasion) : lang === 'en' ? (DUA_OCCASIONS_EN[d.occasion] || d.occasion) : d.occasion;
       return `<div class="dua"><div class="dua-occ">${occ}</div><div class="dua-ar">${d.arabic}</div><div class="dua-tr">${d.transliteration}</div><div class="dua-fr">${lang === 'ar' ? '' : lang === 'en' ? '🇬🇧 ' : '🇫🇷 '}${d.translation}</div></div>`;
@@ -1231,6 +1242,7 @@ github.com/abourdim/hajj-guide`;
       <div class="fc-face fc-back"><div class="fc-lbl">${lang==='ar'?'الإجابة':lang==='en'?'Answer':'Réponse'}</div><div class="fc-a">${f.a}</div></div>
     </div></div>`;
     const cc = document.getElementById('fcCounter');
+    if (!cc) return;
     if (cc) cc.textContent = (fcIdx+1)+'/'+fcs.length;
   }
   const fpBtn = document.getElementById('fcPrev');
@@ -1267,7 +1279,8 @@ github.com/abourdim/hajj-guide`;
 
   // ============ FAQ ============
   function renderFQ() {
-    const c = document.getElementById('faqContainer'); if (!c) return;
+    const c = document.getElementById('faqContainer');
+    if (!c) return; if (!c) return;
     const faqData = D('faq');
     c.innerHTML = faqData.map((f) => `
       <div class="fq"><div class="fq-q"><span>${f.q}</span><span class="fq-arr">▼</span></div><div class="fq-a"><p>${f.a}</p></div></div>
@@ -1524,7 +1537,8 @@ github.com/abourdim/hajj-guide`;
     const d = D('practicalSituations'); if (!d) return;
     const severityColors = { important: 'var(--gold)', urgent: 'var(--rose)', info: 'var(--teal)' };
     const severityLabels = { important: '⚠️ Important', urgent: '🚨 Urgent', info: 'ℹ️ Info' };
-    const pc = document.getElementById('practicalContainer'); if (!pc) return;
+    const pc = document.getElementById('practicalContainer');
+    if (!pc) return; if (!pc) return;
     pc.innerHTML = `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       <div style="display:grid;gap:12px">
