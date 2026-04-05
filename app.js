@@ -1146,7 +1146,7 @@ github.com/abourdim/hajj-guide`;
       <line x1="300" y1="40" x2="300" y2="170" stroke="var(--brd)" stroke-width="1" stroke-dasharray="4,3"/>
       <text x="300" y="30" text-anchor="middle" font-size="9" fill="var(--gold)" font-weight="700">${cl.title}</text>
     </svg>`;
-    document.getElementById('clothingContainer').innerHTML = `
+    (document.getElementById('clothingContainer')||{}).innerHTML= `
       <div style="background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);padding:18px;box-shadow:var(--sh);margin-bottom:16px;overflow:hidden">${ihramSvg}</div>
       ${(D('clothing')).map(c => `
         <div style="background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);padding:20px;box-shadow:var(--sh);margin-bottom:12px">
@@ -1253,7 +1253,7 @@ github.com/abourdim/hajj-guide`;
   function renderHP() {
     const healthColors = {'💧':'var(--blue)','☀️':'var(--gold)','🦶':'var(--teal)','🤧':'var(--rose)','💊':'var(--rose)','🦷':'var(--t3)','👁️':'var(--teal)','🧠':'var(--gold)','🍎':'var(--grn)','🏥':'var(--rose)','😴':'var(--blue)','🧴':'var(--teal)','🩹':'var(--rose)','📱':'var(--gold)','🧳':'var(--t3)','🤝':'var(--grn)','🔥':'var(--rose)','🫁':'var(--teal)','🦠':'var(--rose)','🤰':'var(--grn)','👴':'var(--gold)','😷':'var(--blue)'};
     const hData = D('health'); if (!hData) return;
-    document.getElementById('healthContainer').innerHTML = hData.map(h => {
+    (document.getElementById('healthContainer')||{}).innerHTML= hData.map(h => {
       const col = healthColors[h.emoji] || 'var(--teal)';
       return `<div style="background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);padding:0;box-shadow:var(--sh);overflow:hidden;transition:.3s" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='var(--shm)'" onmouseout="this.style.transform='';this.style.boxShadow='var(--sh)'">
         <div style="display:flex;align-items:center;gap:12px;padding:16px 18px;background:linear-gradient(135deg,${col}11,transparent);border-bottom:1px solid var(--brd)">
@@ -1289,7 +1289,7 @@ github.com/abourdim/hajj-guide`;
       <text x="250" y="136" text-anchor="middle" font-size="10" fill="#28a745" font-weight="700">🟢 SUNAN (Recommandés)</text>
       <text x="250" y="148" text-anchor="middle" font-size="7" fill="#28a745">Bonus de récompense, aucune pénalité</text>
     </svg>`;
-    document.getElementById('classifContainer').innerHTML = `
+    (document.getElementById('classifContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${T("sectionClassif")}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       ${pyramidSvg}
       ${d.categories.map(cat => `
@@ -1366,7 +1366,7 @@ github.com/abourdim/hajj-guide`;
       <text x="30" y="60" font-size="7" fill="var(--t3)" font-family="sans-serif">${lang==='ar'?'المجموع: ٣٠-٦٠ كم مشياً!':lang==='en'?'Total: 30-60 km walking!':'Total : 30-60 km de marche !'}</text>
     </svg>`;
 
-    document.getElementById('mapContainer').innerHTML = `
+    (document.getElementById('mapContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${T("sectionMap")}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       <div style="background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);padding:16px;box-shadow:var(--sh);margin-bottom:20px;overflow:hidden">${mapSvg}</div>
       <div style="display:grid;gap:10px;margin-bottom:20px">
@@ -1395,7 +1395,7 @@ github.com/abourdim/hajj-guide`;
   // ============ NUSUK INFO ============
   function renderNusuk() {
     const d = D('nusukInfo'); if (!d) return;
-    document.getElementById('nusukContainer').innerHTML = `
+    (document.getElementById('nusukContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       <div style="background:linear-gradient(135deg,rgba(30,113,110,.06),transparent);border-radius:var(--rr);padding:18px;border:1px solid var(--brd);margin-bottom:16px">
         <p style="font-size:.9rem;color:var(--teal);font-weight:700;margin-bottom:6px">📅 Hajj 2026</p>
@@ -1430,7 +1430,7 @@ github.com/abourdim/hajj-guide`;
   // ============ EXTERNAL LINKS ============
   function renderLinks() {
     const d = (D('externalLinks')); if (!d) return;
-    document.getElementById('linksContainer').innerHTML = `
+    (document.getElementById('linksContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">🔗 ${lang==='ar'?'أفضل الموارد الخارجية':lang==='en'?'Best External Resources':'Meilleures Ressources Externes'}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${lang==='ar'?'أفضل الدروس والأدلة والأدوات لتحضير حجكم.':lang==='en'?'The best tutorials, guides and tools to prepare your Hajj.':'Les meilleurs tutoriels, guides et outils pour préparer votre Hajj.'}</p></div>
       ${d.map(cat => `
         <div style="margin-bottom:24px">
@@ -1469,7 +1469,7 @@ github.com/abourdim/hajj-guide`;
       }).join('')}
     </svg>`;
 
-    document.getElementById('tourContainer').innerHTML = `
+    (document.getElementById('tourContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       <div style="background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);padding:20px;box-shadow:var(--sh);margin-bottom:20px;overflow-x:auto">
         <h3 style="font-size:1rem;color:var(--teal);margin-bottom:4px;font-weight:700">🗺️ Parcours du Hajj</h3>
@@ -1497,7 +1497,7 @@ github.com/abourdim/hajj-guide`;
   function renderHandicap() {
     const d = D('handicap'); if (!d) return;
     const catColors = {'♿':'var(--blue)','👴':'var(--gold)','🦯':'var(--teal)','🦻':'var(--rose)','🤰':'var(--grn)','🧠':'var(--gold)'};
-    document.getElementById('handicapContainer').innerHTML = `
+    (document.getElementById('handicapContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       ${d.categories.map(cat => {
         const col = catColors[cat.icon] || 'var(--teal)';
@@ -1570,7 +1570,7 @@ github.com/abourdim/hajj-guide`;
       <line x1="78" y1="147" x2="82" y2="147" stroke="var(--t3)" stroke-width="1"/>
     </svg>`;
 
-    document.getElementById('heatContainer').innerHTML = `
+    (document.getElementById('heatContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--rose);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-bottom:20px;background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);padding:20px;box-shadow:var(--sh)">
         ${thermoSvg}
@@ -1589,7 +1589,7 @@ github.com/abourdim/hajj-guide`;
   function renderErrors() {
     const d = D('topErrors');
     if (!d) return;
-    document.getElementById('errorsContainer').innerHTML = `
+    (document.getElementById('errorsContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--rose);margin-bottom:8px">${T("sectionErrors")}</h2></div>
       <div style="display:grid;gap:12px">
         ${d.items.map((e) => `<div style="background:var(--card);border:1px solid var(--brd);border-radius:var(--rr);box-shadow:var(--sh);overflow:hidden;transition:.3s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
@@ -1633,7 +1633,7 @@ github.com/abourdim/hajj-guide`;
       <text x="377" y="98" text-anchor="middle" font-size="9" fill="#f0ad4e">✅ Requis</text>
       <text x="522" y="98" text-anchor="middle" font-size="9" fill="#6c757d">❌ Non requis</text>
     </svg>`;
-    document.getElementById('typesContainer').innerHTML = `
+    (document.getElementById('typesContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       ${compSvg}
       <div style="display:grid;gap:14px">
@@ -1682,7 +1682,7 @@ github.com/abourdim/hajj-guide`;
       <line x1="95" y1="100" x2="140" y2="100" stroke="var(--t3)" stroke-width="1" stroke-dasharray="3,2" marker-end="none"/>
     </svg>`;
 
-    document.getElementById('medinaContainer').innerHTML = `
+    (document.getElementById('medinaContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--grn);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       <div style="background:linear-gradient(135deg,rgba(46,125,82,.08),transparent);border:2px solid rgba(46,125,82,.15);border-radius:var(--rr);padding:20px;margin-bottom:16px">
         <h3 style="font-size:1.1rem;color:var(--grn);margin-bottom:10px">${r.title}</h3>
@@ -1704,7 +1704,7 @@ github.com/abourdim/hajj-guide`;
   // ============ APPS ============
   function renderApps() {
     const d = D('recommendedApps'); if (!d) return;
-    document.getElementById('appsContainer').innerHTML = `
+    (document.getElementById('appsContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-bottom:16px">
         ${d.apps.map(a => {
@@ -1737,7 +1737,7 @@ github.com/abourdim/hajj-guide`;
     // Parse the avg value to get a number for bar width (rough mapping)
     const avgMap = {'France':9500,'Royaume-Uni':8000,'États-Unis':12000,'Canada':13000,'Algérie':6000,'Maroc':8000,'Tunisie':7000};
     const maxAvg = 13000;
-    document.getElementById('costsContainer').innerHTML = `
+    (document.getElementById('costsContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><p style="font-size:.9rem;color:var(--t2);line-height:1.7">${d.intro}</p></div>
       <div style="display:grid;gap:12px;margin-bottom:16px">
         ${d.countries.map(c => {
@@ -1810,7 +1810,7 @@ github.com/abourdim/hajj-guide`;
     });
     tlSvg += '</svg>';
 
-    document.getElementById('datesContainer').innerHTML = `
+    (document.getElementById('datesContainer')||{}).innerHTML= `
       <div style="margin-bottom:20px"><h2 style="font-family:var(--fd);font-size:1.4rem;color:var(--gold);margin-bottom:8px">${d.title}</h2><div style="padding:12px 16px;background:rgba(200,168,78,.1);border:2px solid rgba(200,168,78,.2);border-radius:var(--rr);font-size:.85rem;color:var(--gold);line-height:1.6;margin-bottom:16px">${d.warning}</div></div>
       ${calHTML}
       ${tlSvg}
